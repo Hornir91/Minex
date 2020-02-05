@@ -1,1 +1,1 @@
-# Minexp
+# Minex
