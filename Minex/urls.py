@@ -13,9 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import path
+from django.views.generic import RedirectView
+
+from Min1.views import BaseView, MineCreate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('', BaseView.as_view(), name='base'),
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
+    path('mine_create_form/', MineCreate.as_view(), name='mine-create')
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
