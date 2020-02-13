@@ -20,11 +20,12 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import path
 from django.views.generic import RedirectView
 
-from Min1.views import BaseView, MineCreate
+from Min1.views import Dashboard, MineCreate, MineEdit
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', BaseView.as_view(), name='base'),
+    path('', Dashboard.as_view(), name='dashboard'),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
-    path('mine_create_form/', MineCreate.as_view(), name='mine-create')
+    path('mine_create/', MineCreate.as_view(), name='mine-create'),
+    path('mine_edit/<int:id>/', MineEdit.as_view(), name='mine-edit'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

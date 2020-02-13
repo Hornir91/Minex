@@ -7,3 +7,9 @@ class MineForm(ModelForm):
     class Meta:
         model = Mine
         fields = ['name', 'description', 'is_active', 'voivodeship', 'geom']
+
+
+class MineEditForm(ModelForm):
+    class Meta:
+        model = Mine
+        fields = ['name', 'description', 'is_active', 'voivodeship', 'added_by', 'geom']
