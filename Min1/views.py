@@ -4,17 +4,14 @@ from django.urls import reverse_lazy
 from django.views import View
 
 
-from Min1.forms import MineForm, MineEditForm
-from Min1.models import Mine
+from Min1.forms import MineForm
+from Min1.models import Mine, Category
 
 
 class Dashboard(View):
 
     def get(self, request):
         return render(request, 'dashboard.html')
-
-
-
 
 
 class MineCreate(View):
@@ -32,6 +29,10 @@ class MineCreate(View):
             m1 = Mine.objects.create(name=form.cleaned_data.get('name'), description=form.cleaned_data.get('description'),
                                      is_active=form.cleaned_data.get('is_active'), voivodeship=form.cleaned_data.get('voivodeship'),
                                      added_by=form.cleaned_data.get('added_by'), geom=Point(lng, lat))
+            categories = form.cleaned_data.get('category')
+            for category in categories:
+                c1 = Category.objects.filter(name__contains=category)
+                m1.category.add(c1[0].id)
             return redirect(reverse_lazy('dashboard'))
 
 
@@ -39,11 +40,11 @@ class MineEdit(View):
 
     def get(self, request, id):
         mine = Mine.objects.get(pk=id)
-        form = MineEditForm()
+        form = MineForm(initial=mine)
         return render(request, 'mine_edit.html', {'form': form})
 
     def post(self, request, id):
-        form = MineEditForm(request.POST, initial=[Mine.objects.get(pk=id)])
+        form = MineForm(request.POST)
         if form.is_valid():
             m1 = Mine.objects.get(pk=id)
             lng = form.cleaned_data.get('lng')
@@ -57,3 +58,13 @@ class MineEdit(View):
             m1.save()
         return redirect((reverse_lazy('dashboard')))
 
+
+class MineList(View):
+    def get(self, request):
+        mines = Mine.objects.all()
+        return render(request, 'mine_list.html', locals())
+
+
+class MapDisplay(View):
+    def get(self, request):
+        return render(request, 'map_display.html')

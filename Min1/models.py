@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.gis.db import models as gismodels
+from django.utils.text import slugify
 
 VOIVODESHIP_CHOICES = [
     (1, "dolnośląskie"),
@@ -25,6 +26,13 @@ class Category(models.Model):
     name = models.CharField(max_length=64)
     slug = models.SlugField(max_length=64)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
 
 class Mine(gismodels.Model):
     name = models.CharField(max_length=64, verbose_name='Nazwa')
@@ -38,6 +46,10 @@ class Mine(gismodels.Model):
     added_by = models.CharField(max_length=64, verbose_name='Dodano przez')
     geom = gismodels.PointField(verbose_name='Dane geograficzne')
     objects = gismodels.Manager()
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Mine, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

@@ -1,15 +1,28 @@
-from django.forms import ModelForm
+from django import forms
 
-from Min1.models import Mine
-
-
-class MineForm(ModelForm):
-    class Meta:
-        model = Mine
-        fields = ['name', 'description', 'is_active', 'voivodeship', 'geom']
+from Min1.models import VOIVODESHIP_CHOICES, Category
 
 
-class MineEditForm(ModelForm):
-    class Meta:
-        model = Mine
-        fields = ['name', 'description', 'is_active', 'voivodeship', 'added_by', 'geom']
+class MineForm(forms.Form):
+    name = forms.CharField(max_length=64, label='Nazwa')
+    description = forms.CharField(widget=forms.Textarea, label='Opis')
+    is_active = forms.TypedChoiceField(coerce=lambda x: x == 'True',
+                                       choices=((False, 'Nie'), (True, 'Tak')), label="Czy dalej aktywna?")
+    category = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), label='Kategoria')
+    voivodeship = forms.ChoiceField(choices=VOIVODESHIP_CHOICES, label='Województwo')
+    added_by = forms.CharField(max_length=64, label='Dodano przez')
+    lat = forms.FloatField(label="Szerokość geograficzna")
+    lng = forms.FloatField(label='Długość geograficzna')
+
+
+
+
+# class MineEditForm(forms.Form):
+#     name = forms.CharField(max_length=64, label='Nazwa')
+#     description = forms.Textarea()
+#     is_active = forms.BooleanField(label='Czy dalej aktywna?')
+#     category = forms.ModelMultipleChoiceField(queryset=Category.objects.all(), label='Kategoria')
+#     voivodeship = forms.ChoiceField(choices=VOIVODESHIP_CHOICES, label='Województwo')
+#     added_by = forms.CharField(max_length=64, label='Dodano przez')
+#     lng = forms.FloatField(label='Długość geograficzna')
+#     lat = forms.FloatField(label="Szerokość geograficzna")

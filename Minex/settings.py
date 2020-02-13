@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'bootstrap4',
     'Min1',
+    'leaflet',
 ]
 
 MIDDLEWARE = [

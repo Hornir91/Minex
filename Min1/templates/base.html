@@ -26,10 +26,10 @@
                     <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Lista</a>
+                    <a class="nav-link" href="{% url 'mine-list' %}">Lista</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mapa</a>
+                    <a class="nav-link" href="{% url 'map-display' %}">Mapa</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Kontakt</a>
@@ -51,7 +51,7 @@
 {% endblock %}
 
 {% block footer %}
-<footer>
+<footer class="container">
     {% if user.is_authenticated %}
         <p style="display: inline">Witaj {{ user.username }}</p> <button type="button"><a href="logout/">Wyloguj się</a></button>
     {% else %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load bootstrap4 %}
+    {% bootstrap_css %}
+    {% load leaflet_tags %}
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <div class="container" >
+        {% leaflet_map "main" callback="main_map_init" %}
+
+        <script type="text/javascript">
+        function main_map_init (map, options) {
+            var dataurl = '{% url "data" %}';
+            // Download GeoJSON via Ajax
+            $.getJSON(dataurl, function (data) {
+                // Add GeoJSON layer
+                L.geoJson(data).addTo(map);
+    });
+        }
+        </script>
+    </div>
+{% endblock %}

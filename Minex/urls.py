@@ -14,13 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.urls import path
 from django.views.generic import RedirectView
+from djgeojson.views import GeoJSONLayerView
 
-from Min1.views import Dashboard, MineCreate, MineEdit
+from Min1.models import Mine
+from Min1.views import Dashboard, MineCreate, MineEdit, MineList, MapDisplay
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +31,7 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
     path('mine_create/', MineCreate.as_view(), name='mine-create'),
     path('mine_edit/<int:id>/', MineEdit.as_view(), name='mine-edit'),
+    path('mine_list/', MineList.as_view(), name='mine-list'),
+    path('map_display', MapDisplay.as_view(), name='map-display'),
+    url(r'^data.geojson$', GeoJSONLayerView.as_view(model=Mine), name='data')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

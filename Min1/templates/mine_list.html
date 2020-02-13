@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load bootstrap4 %}
+    {% bootstrap_css %}
+    <div class="container">
+        <h2>Lista wszystkich obiektów</h2>
+        <p>Poniżej przedstawiam kompletny spis wszystkich obiektów dostępnych na stronie.</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Kategorie</th>
+                    <th>Województwo</th>
+                    <th>Dodane przez</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mine in mines %}
+                <tr>
+                    <td>{{ mine.name }}</td>
+                    <td>{{ mine.category.get }}</td>
+                    <td>{{ mine.voivodeship }}</td>
+                    <td>{{ mine.added_by }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
