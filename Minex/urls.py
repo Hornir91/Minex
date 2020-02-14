@@ -18,20 +18,23 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.urls import path
+from django.urls import path, re_path, include
 from django.views.generic import RedirectView
 from djgeojson.views import GeoJSONLayerView
 
 from Min1.models import Mine
-from Min1.views import Dashboard, MineCreate, MineEdit, MineList, MapDisplay
+from Min1.views import Dashboard, MineCreate, MineEdit, MineList, MapDisplay, MineDetails, Login, Logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', Dashboard.as_view(), name='dashboard'),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico'))),
     path('mine_create/', MineCreate.as_view(), name='mine-create'),
-    path('mine_edit/<int:id>/', MineEdit.as_view(), name='mine-edit'),
+    re_path(r'^mine_edit/(?P<id>\d+)/$', MineEdit.as_view(), name='mine-edit'),
     path('mine_list/', MineList.as_view(), name='mine-list'),
     path('map_display', MapDisplay.as_view(), name='map-display'),
-    url(r'^data.geojson$', GeoJSONLayerView.as_view(model=Mine), name='data')
+    url(r'^data.geojson$', GeoJSONLayerView.as_view(model=Mine), name='data'),
+    re_path(r'^mine_details/(?P<id>\d+)/$', MineDetails.as_view(), name='mine-details'),
+    path('login/', Login.as_view(), name='login'),
+    path('logout/', Logout.as_view(), name='logout'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

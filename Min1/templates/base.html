@@ -4,14 +4,13 @@
     {% load static %}
     {% load bootstrap4 %}
     {% bootstrap_css %}
+    {% bootstrap_javascript %}
 
 
     <title>Minex</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="shortcut icon" href="{% static '/favicon.ico' %}" type="image/png" />
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -34,9 +33,16 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Kontakt</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Zaloguj</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <p>Zalogowany: {{ user.username }} <button type="button" class="btn btn-primary"><a href="{% url 'logout' %}">
+                            Wyloguj</a></button></p>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">Zaloguj</a>
+                    </li>
+                {% endif %}
             </ul>
             <form class="form-inline" action="/url/">
                 <label>
@@ -50,14 +56,14 @@
 
 {% endblock %}
 
-{% block footer %}
-<footer class="container">
-    {% if user.is_authenticated %}
-        <p style="display: inline">Witaj {{ user.username }}</p> <button type="button"><a href="logout/">Wyloguj się</a></button>
-    {% else %}
-        <p style="display: inline ">Zostałeś wylogowany</p> <button type="button"><a href="login2/">Zaloguj się</a></button>
-    {% endif %}
-</footer>
-{% endblock %}
+{#{% block footer %}#}
+{#<footer class="container">#}
+{#    {% if user.is_authenticated %}#}
+{#        <p style="display: inline">Witaj {{ user.username }}</p> <button type="button"><a href="logout/">Wyloguj się</a></button>#}
+{#    {% else %}#}
+{#        <p style="display: inline ">Zostałeś wylogowany</p> <button type="button"><a href="login2/">Zaloguj się</a></button>#}
+{#    {% endif %}#}
+{#</footer>#}
+{#{% endblock %}#}
 </body>
 </html>

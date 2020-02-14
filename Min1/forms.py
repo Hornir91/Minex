@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import PasswordInput
 
 from Min1.models import VOIVODESHIP_CHOICES, Category
 
@@ -15,8 +16,6 @@ class MineForm(forms.Form):
     lng = forms.FloatField(label='Długość geograficzna')
 
 
-
-
 # class MineEditForm(forms.Form):
 #     name = forms.CharField(max_length=64, label='Nazwa')
 #     description = forms.Textarea()
@@ -26,3 +25,8 @@ class MineForm(forms.Form):
 #     added_by = forms.CharField(max_length=64, label='Dodano przez')
 #     lng = forms.FloatField(label='Długość geograficzna')
 #     lat = forms.FloatField(label="Szerokość geograficzna")
+
+
+class LoginForm(forms.Form):
+    login = forms.CharField(min_length=3, max_length=32)
+    password = forms.CharField(widget=PasswordInput)

@@ -1,10 +1,11 @@
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.gis.geos import Point
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 
 
-from Min1.forms import MineForm
+from Min1.forms import MineForm, LoginForm
 from Min1.models import Mine, Category
 
 
@@ -68,3 +69,34 @@ class MineList(View):
 class MapDisplay(View):
     def get(self, request):
         return render(request, 'map_display.html')
+
+
+class MineDetails(View):
+    def get(self, request, id):
+        mine = Mine.objects.get(pk=id)
+        return render(request, 'mine_details.html', locals())
+
+
+class Login(View):
+    def get(self, request):
+        form = LoginForm()
+        return render(request, 'login.html', locals())
+
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user_login = form.cleaned_data['login']
+            password = form.cleaned_data['password']
+            user = authenticate(username=user_login, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect(reverse_lazy('mine-list'))
+            else:
+                response = "Podany użytkownik nie istnieje"
+                return response
+
+
+class Logout(View):
+    def get(self, request):
+        logout(request)
+        return redirect(reverse_lazy('dashboard'))

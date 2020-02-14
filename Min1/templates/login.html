@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load bootstrap4 %}
+    {% bootstrap_css %}
+    <div class="container">
+        <form class="form-inline" action="#" method="post">
+        {% csrf_token %}
+        {{ form }}
+        {% buttons %}
+            <button type="submit" class="btn btn-success">Zaloguj</button>
+        {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}

@@ -17,7 +17,7 @@
             <tbody>
                 {% for mine in mines %}
                 <tr>
-                    <td>{{ mine.name }}</td>
+                    <td><a href="{% url 'mine-details' mine.id %}">{{ mine.name }}</a></td>
                     <td>{{ mine.category.get }}</td>
                     <td>{{ mine.voivodeship }}</td>
                     <td>{{ mine.added_by }}</td>
