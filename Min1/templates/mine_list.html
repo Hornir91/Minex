@@ -1,10 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
+{#    {% load static %}#}
 {% load bootstrap4 %}
     {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <div class="container">
-        <h2>Lista wszystkich obiektów</h2>
-        <p>Poniżej przedstawiam kompletny spis wszystkich obiektów dostępnych na stronie.</p>
+        <div class="row">
+            <div class="col-md-10">
+                <h2>Lista wszystkich obiektów</h2>
+                <p>Poniżej przedstawiam kompletny spis wszystkich obiektów dostępnych na stronie.</p>
+            </div>
+            <div class="col-md-2">
+                {% buttons %}
+                    <button type="button" class="btn btn-primary"><a href="{% url 'mine-create' %}" style="text-decoration: none;
+                    color: white;">Dodaj</a></button>
+                {% endbuttons %}
+            </div>
+        </div>
+    </div>
+    <div class="container">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -12,6 +26,7 @@
                     <th>Kategorie</th>
                     <th>Województwo</th>
                     <th>Dodane przez</th>
+                    <th>Obraz</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,9 +34,13 @@
                 <tr>
                     <td><a href="{% url 'mine-details' mine.id %}">{{ mine.name }}</a></td>
                     <td>{{ mine.category.get }}</td>
-                    <td>{{ mine.voivodeship }}</td>
+                    <td>{{ mine.get_voivodeship_display }}</td>
                     <td>{{ mine.added_by }}</td>
-                </tr>
+                    {% if mine.images %}
+                    <td><img src="{{ mine.images.url }}" class="img-thumbnail" style="max-height: 150px"  alt="Obrazek"></td>
+                    {% else %}
+                      <td><img src="{{ mine.images }}" class="img-fluid" alt="Obrazek"></td>
+                {% endif %}</tr>
                 {% endfor %}
             </tbody>
         </table>

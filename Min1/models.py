@@ -44,6 +44,7 @@ class Mine(gismodels.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name='Utworzono')
     edited = models.DateTimeField(auto_now=True, verbose_name="Edytowano")
     added_by = models.CharField(max_length=64, verbose_name='Dodano przez')
+    images = models.ImageField(upload_to='media/images/', null=True)
     geom = gismodels.PointField(verbose_name='Dane geograficzne')
     objects = gismodels.Manager()
 

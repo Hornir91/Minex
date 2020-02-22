@@ -18,12 +18,12 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.urls import path, re_path, include
+from django.urls import path, re_path
 from django.views.generic import RedirectView
-from djgeojson.views import GeoJSONLayerView
 
-from Min1.models import Mine
-from Min1.views import Dashboard, MineCreate, MineEdit, MineList, MapDisplay, MineDetails, Login, Logout
+from Min1 import views
+from Min1.views import Dashboard, MineCreate, MineEdit, MineList, MapDisplay, MineDetails, Login, Logout, \
+    GeoJSONLayerMinePropertiesView, Contact, AddUser, ResetPassword
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,8 +33,13 @@ urlpatterns = [
     re_path(r'^mine_edit/(?P<id>\d+)/$', MineEdit.as_view(), name='mine-edit'),
     path('mine_list/', MineList.as_view(), name='mine-list'),
     path('map_display', MapDisplay.as_view(), name='map-display'),
-    url(r'^data.geojson$', GeoJSONLayerView.as_view(model=Mine), name='data'),
+    url(r'^data.geojson$', GeoJSONLayerMinePropertiesView.as_view(), name='data'),
     re_path(r'^mine_details/(?P<id>\d+)/$', MineDetails.as_view(), name='mine-details'),
     path('login/', Login.as_view(), name='login'),
     path('logout/', Logout.as_view(), name='logout'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('contact/', Contact.as_view(), name='contact'),
+    path('add_user/', AddUser.as_view(), name='add-user'),
+    path('reset_password/', ResetPassword.as_view(), name='reset-password'),
+    re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+            views.activate, name='activate'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

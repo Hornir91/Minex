@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% load static %}
     {% load bootstrap4 %}
     {% bootstrap_css %}
 <div class="container">
-    <form action="#" method="post">
+    <form action="#" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form form %}
         {% buttons %}
