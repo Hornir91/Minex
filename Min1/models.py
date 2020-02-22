@@ -40,7 +40,7 @@ class Mine(gismodels.Model):
     description = models.TextField(verbose_name='Opis')
     is_active = models.BooleanField(verbose_name='Czy dalej aktywna?')
     category = models.ManyToManyField(Category, verbose_name='Kategoria')
-    voivodeship = models.TextField(choices=VOIVODESHIP_CHOICES, verbose_name='Województwo')
+    voivodeship = models.CharField(choices=VOIVODESHIP_CHOICES, max_length=30, verbose_name='Województwo')
     created = models.DateTimeField(auto_now_add=True, verbose_name='Utworzono')
     edited = models.DateTimeField(auto_now=True, verbose_name="Edytowano")
     added_by = models.CharField(max_length=64, verbose_name='Dodano przez')
@@ -54,3 +54,7 @@ class Mine(gismodels.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def images_url(self):
+        return self.images.url

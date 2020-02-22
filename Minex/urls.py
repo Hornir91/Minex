@@ -23,7 +23,7 @@ from django.views.generic import RedirectView
 
 from Min1 import views
 from Min1.views import Dashboard, MineCreate, MineEdit, MineList, MapDisplay, MineDetails, Login, Logout, \
-    GeoJSONLayerMinePropertiesView, Contact, AddUser, ResetPassword
+    GeoJSONLayerMinePropertiesView, Contact, AddUser, ResetPassword, SearchView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,4 +42,5 @@ urlpatterns = [
     path('reset_password/', ResetPassword.as_view(), name='reset-password'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
             views.activate, name='activate'),
+    path('search/', SearchView.as_view(), name='search-result'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

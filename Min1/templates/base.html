@@ -45,11 +45,13 @@
                     </li>
                 {% endif %}
             </ul>
-            <form class="form-inline" action="/url/">
+            <form class="form-inline" action="{% url 'search-result' %}" method="get">
                 <label>
-                    <input class="form-control mr-sm-2" type="text" placeholder="Szukaj" />
+                    <input class="form-control mr-sm-2" name="q" type="text" placeholder="Szukaj" />
                 </label>
-                <button class="btn btn-success" type="submit">Szukaj</button>
+                {% buttons %}
+                    <button class="btn btn-success" type="submit">Szukaj</button>
+                {% endbuttons %}
             </form>
         </nav>
     </header>

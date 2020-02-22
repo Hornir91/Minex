@@ -115,7 +115,7 @@ class Logout(View):
 
 class GeoJSONLayerMinePropertiesView(GeoJSONLayerView):
     model = Mine
-    properties = ['name', 'description']
+    properties = ['name', 'description', 'images_url']
 
 
 class Contact(View):
@@ -203,3 +203,11 @@ class ResetPassword(PermissionRequiredMixin, View):
             user.set_password(f'{new_pass}')
             user.save()
             return HttpResponse("Hasło zmienione")
+
+
+class SearchView(View):
+
+    def get(self, request):
+        query = request.GET.get('q')
+        search_result = Mine.objects.filter(name__contains=query)
+        return render(request, 'search_result.html', {'search_result': search_result})
