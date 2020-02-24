@@ -51,7 +51,8 @@ class MineEdit(View):
     def get(self, request, id):
         mine = Mine.objects.get(pk=id)
         form = MineForm(initial={'name': mine.name, 'description': mine.description, 'is_active': mine.is_active,
-                                 'voivodeship': mine.voivodeship, 'added_by': mine.added_by})
+                                 'voivodeship': mine.voivodeship, 'added_by': mine.added_by, 'lat': mine.geom.coords[1],
+                                 'lng': mine.geom.coords[0]})
         return render(request, 'mine_edit.html', locals())
 
     def post(self, request, id):

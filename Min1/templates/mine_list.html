@@ -11,10 +11,12 @@
                 <p>Poniżej przedstawiam kompletny spis wszystkich obiektów dostępnych na stronie.</p>
             </div>
             <div class="col-md-2">
+                {% if user.is_authenticated %}
                 {% buttons %}
                     <button type="button" class="btn btn-primary"><a href="{% url 'mine-create' %}" style="text-decoration: none;
                     color: white;">Dodaj</a></button>
                 {% endbuttons %}
+                {% endif %}
             </div>
         </div>
     </div>

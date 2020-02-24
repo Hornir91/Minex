@@ -12,10 +12,10 @@
                     <p>{{ mine.description }}</p>
                 </div>
                 <div class="col-md-">
-                    <p>Województwo {{ mine.voivodeship }}</p>
+                    <p>Województwo: {{ mine.get_voivodeship_display }}</p>
                 </div>
                 <div class="col-md-">
-                    <p>{{ mine.geom }}</p>
+                    <p>Współrzędne geograficzne: <a href="{% url 'map-display' %}">{{ mine.geom.coords }}</a></p>
                 </div>
                 {% if user.is_authenticated %}
                     {% buttons %}
