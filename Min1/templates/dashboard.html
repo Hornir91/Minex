@@ -4,48 +4,72 @@
     {% load static %}
     {% bootstrap_css %}
 
-    <style>
-        /* Make the image fully responsive */
-        .carousel-inner img {
-
-          width: 100%;
-          height: 100%;
-        }
-    </style>
+{#    <style>#}
+{#        /* Make the image fully responsive */#}
+{#        .carousel-inner img {#}
+{##}
+{#          width: 100%;#}
+{#          height: 100%;#}
+{#        }#}
+{#    </style>#}
 <div class="container">
-    <div class="pb-5">
-        <h2>Witam na stronie! Znajdziecie tutaj różne obiekty górnicze z całego świata.</h2>
-    </div>
-    <div id="demo" class="carousel slide" data-ride="carousel">
-
-        <!-- Indicators -->
-        <ul class="carousel-indicators">
-            <li data-target="#demo" data-slide-to="0" class="active"></li>
-            <li data-target="#demo" data-slide-to="1"></li>
-            <li data-target="#demo" data-slide-to="2"></li>
-        </ul>
-
-        <!-- The slideshow -->
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <p>Tutaj będą obrazki załączonych kopalni.</p>
-            </div>
-            <div class="carousel-item">
-                <p>Tutaj będą obrazki załączonych kopalni.</p>
-            </div>
-            <div class="carousel-item">
-{#                <img src="{% static 'img1.jpg' %}" alt="img1">#}
-                <p>Tutaj będą obrazki załączonych kopalni.</p>
-            </div>
+    <div class="row">
+        <div class="col-md-9">
+            <h1>Witam na mojej stronie!</h1>
+            <p>
+                Rozwijając swoje zainteresowania związane z geologią oraz podróżami, nie natrafiłem dotychczas na odpowiedni serwis, gdzie
+                znajdowałyby się wszystkie informacje, których potrzebuję - zarówno do pogłębiania wiedzy o minerałach, jak i odwiedzania
+                nieczynnych hałd i kopalń w poszukiwaniu ciekawych okazów. W związku z tym postanowiłem stworzyć swoją stronę, gdzie
+                wszystko umieszczę w jednym miejscu. Do Waszej dyspozycji oddaję podstawową wersję strony, którą z czasem będę rozbudowywał,
+                poszerzając zasób, jak i dodając nowe funkcje. Na dzień dzisiejszy strona posiada prawdziwą mapę z różnymi obiektami górniczymi,
+                aby można było zobaczyć, gdzie w Waszej okolicy znajduje się coś ciekawego, jak i zaplanować wyprawę w te miejsca,
+                aby uzupełnić swoje kolekcje.
+            </p>
         </div>
-
-        <!-- Left and right controls -->
-        <a class="carousel-control-prev" href="#demo" data-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </a>
-        <a class="carousel-control-next" href="#demo" data-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </a>
+        <div class="col-md-3">
+            <h5>Prawa autorskie</h5>
+            <p>
+                Zgodnie z art. 115 ust. 1, 2 prawa autorskiego: "Każdy kto przywłaszcza sobie autorstwo albo wprowadza w błąd
+                co do autorstwa całości lub części cudzego utworu albo artystycznego wykonania, podlega grzywnie, karze ograniczenia
+                wolności albo pozbawienia wolności do lat 3. Takiej samej karze podlega, kto rozpowszechnia bez podania nazwiska lub
+                pseudonimu twórcy cudzy utwór w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publicznie
+                zniekształca taki utwór, artystyczne wykonanie, fonogram, wideogram lub nadanie".
+                <hr style="display: none">
+                Powielanie lub wykorzystywanie materiałów z tej strony bez zgody autora, zarówno do celów komercyjnych lub
+                w inny sposób, jest naruszeniem własności intelektualnej i jest zabronione.
+            </p>
+        </div>
     </div>
+{#    <div id="demo" class="carousel slide" data-ride="carousel">#}
+{##}
+{#        <!-- Indicators -->#}
+{#        <ul class="carousel-indicators">#}
+{#            <li data-target="#demo" data-slide-to="0" class="active"></li>#}
+{#            <li data-target="#demo" data-slide-to="1"></li>#}
+{#            <li data-target="#demo" data-slide-to="2"></li>#}
+{#        </ul>#}
+{##}
+{#        <!-- The slideshow -->#}
+{#        <div class="carousel-inner">#}
+{#            <div class="carousel-item active">#}
+{#                <p>Tutaj będą obrazki załączonych kopalni.</p>#}
+{#            </div>#}
+{#            <div class="carousel-item">#}
+{#                <p>Tutaj będą obrazki załączonych kopalni.</p>#}
+{#            </div>#}
+{#            <div class="carousel-item">#}
+{#                <img src="{% static 'img1.jpg' %}" alt="img1">#}
+{#                <p>Tutaj będą obrazki załączonych kopalni.</p>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <!-- Left and right controls -->#}
+{#        <a class="carousel-control-prev" href="#demo" data-slide="prev">#}
+{#            <span class="carousel-control-prev-icon"></span>#}
+{#        </a>#}
+{#        <a class="carousel-control-next" href="#demo" data-slide="next">#}
+{#            <span class="carousel-control-next-icon"></span>#}
+{#        </a>#}
+{#    </div>#}
 </div>
 {% endblock %}
