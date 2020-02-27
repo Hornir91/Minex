@@ -1,7 +1,7 @@
 from django import forms
-from django.forms import PasswordInput
+from django.forms import PasswordInput, ModelForm
 
-from Min1.models import VOIVODESHIP_CHOICES, Category
+from Min1.models import VOIVODESHIP_CHOICES, Category, NewsPost
 
 
 class MineForm(forms.Form):
@@ -66,3 +66,9 @@ class ResetPasswordForm(forms.Form):
                 code='password_mismatch',
             )
         return new_password2
+
+
+class NewsPostCreateForm(ModelForm):
+    class Meta:
+        model = NewsPost
+        fields = ['title', 'content']

@@ -13,7 +13,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from djgeojson.views import GeoJSONLayerView
 
-from Min1.forms import MineForm, LoginForm, AddUserForm, ResetPasswordForm
+from Min1.forms import MineForm, LoginForm, AddUserForm, ResetPasswordForm, NewsPostCreateForm
 from Min1.models import Mine, Category
 from Min1.tokens import account_activation_token
 
@@ -212,3 +212,11 @@ class SearchView(View):
         query = request.GET.get('q')
         search_result = Mine.objects.filter(name__contains=query)
         return render(request, 'search_result.html', {'search_result': search_result})
+
+
+class NewsPostCreate(View):
+
+    def get(self, request):
+        form = NewsPostCreateForm()
+        return render(request, 'news_post_create.html', locals())
+
