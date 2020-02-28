@@ -45,6 +45,9 @@ class Comment(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
+    class Meta:
+        ordering = ['created_on']
+
 
 class Mine(gismodels.Model):
     name = models.CharField(max_length=64, verbose_name='Nazwa')

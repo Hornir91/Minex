@@ -34,7 +34,7 @@
                     <a class="nav-link" href="{% url 'contact' %}">Kontakt</a>
                 </li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item" style="padding-right: 5px">
+                    <li class="nav-item">
                         <p>Zalogowany: {{ user.username }} <button type="button" class="btn btn-primary">
                             <a href="{% url 'logout' %}" style="text-decoration: none; color: white">
                             Wyloguj</a></button></p>

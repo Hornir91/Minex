@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load bootstrap4 %}
+    {% bootstrap_css %}
+    <div class="container">
+        <form action="#" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">Edytuj</button>
+            {% endbuttons %}
+        </form>
+    </div>
+{% endblock %}

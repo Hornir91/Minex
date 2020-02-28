@@ -68,7 +68,7 @@ class ResetPasswordForm(forms.Form):
         return new_password2
 
 
-class NewsPostCreateForm(ModelForm):
+class NewsPostForm(ModelForm):
     class Meta:
         model = NewsPost
         fields = ['title', 'content']

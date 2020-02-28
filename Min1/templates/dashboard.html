@@ -26,9 +26,32 @@
                 aby uzupełnić swoje kolekcje.
             </p>
             <hr>
-            <h1>Aktualności</h1>
-            <h3>posttitle</h3>
-            <p>posttext</p>
+            <div class="row">
+                <div class="col-md-10">
+                    <h1>Aktualności</h1>
+                </div>
+                <div class="col-md-2">
+                {% if user.is_superuser %}
+                    {% buttons %}
+                    <button type="button" class="btn btn-primary"><a href="{% url 'news-post-create' %}"
+                                                                     style="text-decoration: none; color: white; position: center">Dodaj news</a></button>
+                {% endbuttons %}
+                {% endif %}
+                </div>
+            </div>
+            {% for new in news %}
+            <p style="font-size: small">Utworzono: {{ new.created_on }}</p>
+            <h3>{{ new.title }}</h3>
+            <p>{{ new.content }}</p>
+                {% if user.is_superuser %}
+                    {% buttons %}
+                    <button type="button" class="btn btn-primary"><a href="{% url 'news-post-edit' new.id %}"
+                                                                     style="text-decoration: none; color: white; position: center">Edytuj</a></button>
+                    <button type="button" class="btn btn-danger"><a href="{% url 'news-post-delete' new.id %}"
+                                                                 style="text-decoration: none; color: white; position: center">Usuń</a></button>
+                {% endbuttons %}
+                {% endif %}
+            {% endfor %}
         </div>
         <div class="col-md-3">
             <h5>Prawa autorskie</h5>

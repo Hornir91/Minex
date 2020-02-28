@@ -13,15 +13,16 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from djgeojson.views import GeoJSONLayerView
 
-from Min1.forms import MineForm, LoginForm, AddUserForm, ResetPasswordForm, NewsPostCreateForm
-from Min1.models import Mine, Category
+from Min1.forms import MineForm, LoginForm, AddUserForm, ResetPasswordForm, NewsPostForm
+from Min1.models import Mine, Category, NewsPost
 from Min1.tokens import account_activation_token
 
 
 class Dashboard(View):
 
     def get(self, request):
-        return render(request, 'dashboard.html')
+        news = NewsPost.objects.all()
+        return render(request, 'dashboard.html', locals())
 
 
 class MineCreate(View):
@@ -217,6 +218,38 @@ class SearchView(View):
 class NewsPostCreate(View):
 
     def get(self, request):
-        form = NewsPostCreateForm()
+        form = NewsPostForm()
         return render(request, 'news_post_create.html', locals())
 
+    def post(self, request):
+        form = NewsPostForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data.get('title')
+            content = form.cleaned_data.get('content')
+            n1 = NewsPost.objects.create(title=title, content=content)
+        return redirect(reverse_lazy('dashboard'))
+
+
+class NewsPostEdit(View):
+
+    def get(self, request, id):
+        post = NewsPost.objects.get(pk=id)
+        form = NewsPostForm(initial={'title': post.title, 'content': post.content})
+        return render(request, 'news_post_edit.html', locals())
+
+    def post(self, request, id):
+        post = NewsPost.objects.get(pk=id)
+        form = NewsPostForm(request.POST)
+        if form.is_valid():
+            post.title = form.cleaned_data.get('title')
+            post.content = form.cleaned_data.get('content')
+            post.save()
+        return redirect(reverse_lazy('dashboard'))
+
+
+class NewsPostDelete(View):
+
+    def get(self, request, id):
+        post = NewsPost.objects.get(pk=id)
+        post.delete()
+        return redirect(reverse_lazy('dashboard'))
