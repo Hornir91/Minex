@@ -18,7 +18,7 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.views.generic import RedirectView
 
 from Min1 import views
@@ -48,4 +48,5 @@ urlpatterns = [
     re_path(r'^news_post_edit/(?P<id>\d+)/$', NewsPostEdit.as_view(), name='news-post-edit'),
     re_path(r'^news_post_delete/(?P<id>\d+)/$', NewsPostDelete.as_view(), name='news-post-delete'),
     re_path(r'^news_post_details/(?P<id>\d+)/$', NewsPostDetails.as_view(), name='news-post-details'),
+    url(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
