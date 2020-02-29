@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import PasswordInput, ModelForm
 
-from Min1.models import VOIVODESHIP_CHOICES, Category, NewsPost
+from Min1.models import VOIVODESHIP_CHOICES, Category, NewsPost, Comment
 
 
 class MineForm(forms.Form):
@@ -72,3 +72,11 @@ class NewsPostForm(ModelForm):
     class Meta:
         model = NewsPost
         fields = ['title', 'content']
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['user_name', 'body']
+
+

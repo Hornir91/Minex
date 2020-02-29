@@ -13,8 +13,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views import View
 from djgeojson.views import GeoJSONLayerView
 
-from Min1.forms import MineForm, LoginForm, AddUserForm, ResetPasswordForm, NewsPostForm
-from Min1.models import Mine, Category, NewsPost
+from Min1.forms import MineForm, LoginForm, AddUserForm, ResetPasswordForm, NewsPostForm, CommentForm
+from Min1.models import Mine, Category, NewsPost, Comment
 from Min1.tokens import account_activation_token
 
 
@@ -22,6 +22,8 @@ class Dashboard(View):
 
     def get(self, request):
         news = NewsPost.objects.all()
+        # for new in news:
+        #     comments = new.comments.all()
         return render(request, 'dashboard.html', locals())
 
 
@@ -44,6 +46,8 @@ class MineCreate(View):
             for category in categories:
                 c1 = Category.objects.filter(name__contains=category)
                 m1.category.add(c1[0].id)
+            return redirect(reverse_lazy('dashboard'))
+        else:
             return redirect(reverse_lazy('dashboard'))
 
 
@@ -70,7 +74,9 @@ class MineEdit(View):
             m1.added_by = form.cleaned_data.get('added_by')
             m1.images = form.cleaned_data.get('image')
             m1.save()
-        return redirect((reverse_lazy('dashboard')))
+            return redirect(reverse_lazy('dashboard'))
+        else:
+            return redirect(reverse_lazy('dashboard'))
 
 
 class MineList(View):
@@ -103,7 +109,7 @@ class Login(View):
             user = authenticate(username=user_login, password=password)
             if user is not None:
                 login(request, user)
-                return redirect(reverse_lazy('mine-list'))
+                return redirect(reverse_lazy('dashboard'))
             else:
                 return HttpResponse('<script>alert("Nieprawidłowe hasło");\
              window.location=""</script>')
@@ -211,7 +217,7 @@ class SearchView(View):
 
     def get(self, request):
         query = request.GET.get('q')
-        search_result = Mine.objects.filter(name__contains=query)
+        search_result = Mine.objects.filter(name__icontains=query)
         return render(request, 'search_result.html', {'search_result': search_result})
 
 
@@ -253,3 +259,23 @@ class NewsPostDelete(View):
         post = NewsPost.objects.get(pk=id)
         post.delete()
         return redirect(reverse_lazy('dashboard'))
+
+
+class NewsPostDetails(View):
+
+    def get(self, request, id):
+        new = NewsPost.objects.get(pk=id)
+        comments = new.comments.all()
+        form = CommentForm()
+        return render(request, 'news_post_details.html', locals())
+
+    def post(self, request, id):
+        new = NewsPost.objects.get(pk=id)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            user_name = form.cleaned_data.get('user_name')
+            body = form.cleaned_data.get('body')
+            # c = Comment.objects.create(content_type=new, object_id=id, user_name=user_name, body=body, content_type_id=9)
+            c = Comment(content_object=new, user_name=user_name, body=body)
+            c.save()
+            return redirect(reverse_lazy('news-post-details', args=id))

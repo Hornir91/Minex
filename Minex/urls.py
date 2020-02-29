@@ -24,7 +24,7 @@ from django.views.generic import RedirectView
 from Min1 import views
 from Min1.views import Dashboard, MineCreate, MineEdit, MineList, MapDisplay, MineDetails, Login, Logout, \
     GeoJSONLayerMinePropertiesView, Contact, AddUser, ResetPassword, SearchView, NewsPostCreate, NewsPostEdit, \
-    NewsPostDelete
+    NewsPostDelete, NewsPostDetails
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -47,4 +47,5 @@ urlpatterns = [
     path('news_post_create/', NewsPostCreate.as_view(), name='news-post-create'),
     re_path(r'^news_post_edit/(?P<id>\d+)/$', NewsPostEdit.as_view(), name='news-post-edit'),
     re_path(r'^news_post_delete/(?P<id>\d+)/$', NewsPostDelete.as_view(), name='news-post-delete'),
+    re_path(r'^news_post_details/(?P<id>\d+)/$', NewsPostDetails.as_view(), name='news-post-details'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

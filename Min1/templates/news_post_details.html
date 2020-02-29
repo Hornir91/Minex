@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load bootstrap4 %}
+    {% bootstrap_css %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h3>{{ new.title }}</h3>
+                <p>{{ new.content }}</p>
+                <div class="card-body">
+                    {% for comment in comments %}
+                        <div class="comments" style="padding: 10px;">
+                            <p class="font-weight-bold">
+                                {{ comment.user_name }}
+                                <span class="font-weight-normal" style="font-size: small">
+                                    {{ comment.created_on }}
+                                </span>
+                            </p>
+                            {{ comment.body | linebreaks }}
+                        </div>
+                    {% endfor %}
+                    <h3>Zostaw komentarz</h3>
+                    <form method="post" action="">
+                    {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary  btn-lg">Zamieść komentarz</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h5>Prawa autorskie</h5>
+                <p>
+                    Zgodnie z art. 115 ust. 1, 2 prawa autorskiego: "Każdy kto przywłaszcza sobie autorstwo albo wprowadza w błąd
+                    co do autorstwa całości lub części cudzego utworu albo artystycznego wykonania, podlega grzywnie, karze ograniczenia
+                    wolności albo pozbawienia wolności do lat 3. Takiej samej karze podlega, kto rozpowszechnia bez podania nazwiska lub
+                    pseudonimu twórcy cudzy utwór w wersji oryginalnej albo w postaci opracowania, artystyczne wykonanie albo publicznie
+                    zniekształca taki utwór, artystyczne wykonanie, fonogram, wideogram lub nadanie".
+                    <hr style="display: none">
+                    Powielanie lub wykorzystywanie materiałów z tej strony bez zgody autora, zarówno do celów komercyjnych lub
+                    w inny sposób, jest naruszeniem własności intelektualnej i jest zabronione.
+                </p>
+            </div>
+        </div>
+{% endblock %}

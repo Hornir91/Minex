@@ -39,7 +39,7 @@ class Category(models.Model):
 
 class Comment(models.Model):
     body = models.TextField(null=True, verbose_name='Komentarz')
-    user_name = models.CharField(max_length=30, verbose_name='Użytkownik')
+    user_name = models.CharField(max_length=30, verbose_name='Nick')
     created_on = models.DateTimeField(auto_now_add=True, verbose_name='Utworzono')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()

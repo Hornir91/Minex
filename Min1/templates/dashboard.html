@@ -41,7 +41,7 @@
             </div>
             {% for new in news %}
             <p style="font-size: small">Utworzono: {{ new.created_on }}</p>
-            <h3>{{ new.title }}</h3>
+                <h3><a href="{% url 'news-post-details' new.id %}">{{ new.title }}</a></h3>
             <p>{{ new.content }}</p>
                 {% if user.is_superuser %}
                     {% buttons %}
