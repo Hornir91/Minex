@@ -22,6 +22,27 @@
                     <button type="button" class="btn btn-primary"><a href="{% url 'mine-edit' mine.id %}" style="text-decoration: none; color: white">Edytuj</a></button>
                     {% endbuttons %}
                 {% endif %}
+                <div class="card-body">
+                    {% for comment in comments %}
+                        <div class="comments" style="padding: 10px;">
+                            <p class="font-weight-bold">
+                                {{ comment.user_name }}
+                                <span class="font-weight-normal" style="font-size: small">
+                                    {{ comment.created_on }}
+                                </span>
+                            </p>
+                            {{ comment.body | linebreaks }}
+                        </div>
+                    {% endfor %}
+                    <h3>Zostaw komentarz</h3>
+                    <form method="post" action="">
+                    {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary  btn-lg">Zamieść komentarz</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
             </div>
             <div class="col-md-6">
                 <img src="{{ mine.images.url }}" alt="Obrazek" class="img-thumbnail" style="width: 70%">

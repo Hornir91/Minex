@@ -93,7 +93,19 @@ class MapDisplay(View):
 class MineDetails(View):
     def get(self, request, id):
         mine = Mine.objects.get(pk=id)
+        comments = mine.comments.all()
+        form = CommentForm()
         return render(request, 'mine_details.html', locals())
+
+    def post(self, request, id):
+        mine = Mine.objects.get(pk=id)
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            user_name = form.cleaned_data.get('user_name')
+            body = form.cleaned_data.get('body')
+            c = Comment(content_object=mine, user_name=user_name, body=body)
+            c.save()
+            return redirect(reverse_lazy('mine-details', args=(id,)))
 
 
 class Login(View):
@@ -275,7 +287,6 @@ class NewsPostDetails(View):
         if form.is_valid():
             user_name = form.cleaned_data.get('user_name')
             body = form.cleaned_data.get('body')
-            # c = Comment.objects.create(content_type=new, object_id=id, user_name=user_name, body=body, content_type_id=9)
             c = Comment(content_object=new, user_name=user_name, body=body)
             c.save()
-            return redirect(reverse_lazy('news-post-details', args=id))
+            return redirect(reverse_lazy('news-post-details', args=(id,)))

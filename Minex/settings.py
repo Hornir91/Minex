@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'Min1',
     'leaflet',
+    'star_ratings'
 ]
 
 MIDDLEWARE = [
