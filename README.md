@@ -4,7 +4,7 @@ Web application created for geology enthusiast and students for helping them in 
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Setup](#setup)
+* [Requirements](#requirements)
 * [Status](#status)
 
 ## General info
@@ -17,8 +17,8 @@ It is a web application which features world map with mining objects around the 
 * Javascript
 * PostgreSQL database
 
-## Setup
-To launch the project fork it and download required libraries in your IDE with command:
+## Requirements
+All required packages are mentioned in requirements.txt file. To install it run the following command:
 ```
 pip3 install -r requirements.txt
 ```
