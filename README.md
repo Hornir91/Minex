@@ -24,4 +24,4 @@ pip3 install -r requirements.txt
 ```
 
 ## Status
-The front-end of the project was created by Magda from Coders Lab IT school. It was shared to me by the Coders Lab school for back-end training and expanding my project's portfolio.
+The proejct is currently under development.
