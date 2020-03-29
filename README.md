@@ -24,4 +24,4 @@ pip3 install -r requirements.txt
 ```
 
 ## Status
-The proejct is currently under development.
+The project is currently under development.
