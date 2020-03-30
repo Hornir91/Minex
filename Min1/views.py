@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.gis.geos import Point
 from django.contrib.sites.shortcuts import get_current_site
@@ -233,7 +233,8 @@ class SearchView(View):
         return render(request, 'search_result.html', {'search_result': search_result})
 
 
-class NewsPostCreate(View):
+class NewsPostCreate(LoginRequiredMixin, View):
+    login_url = '/login/'
 
     def get(self, request):
         form = NewsPostForm()
