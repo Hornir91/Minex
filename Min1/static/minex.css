@@ -1,0 +1,6 @@
+.search-bar {
+    display: inline-flex;
+    right: 5%;
+    position: absolute;
+    top: 50%;
+}
