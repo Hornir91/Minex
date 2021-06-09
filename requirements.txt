@@ -10,7 +10,7 @@ django-geojson==2.12.0
 django-leaflet==0.26.0
 django-model-utils==4.0.0
 django-star-ratings==0.9.1
-pip==19.0.3
+pip==19.2
 psycopg2-binary==2.8.4
 pytz==2019.3
 setuptools==40.8.0
